@@ -69,13 +69,17 @@ async function sendWeChatNotification(title, content) {
 
   try {
     const url = `https://sctapi.ftqq.com/${currentSckey}.send`;
-    await axios.post(url, {
+    const response = await axios.post(url, {
       title: title,
       desp: content
     });
     console.log('WeChat notification sent successfully');
   } catch (error) {
-    console.error('Error sending WeChat notification:', error.message);
+    if (error.response) {
+      console.error('Error sending WeChat notification:', error.response.status, error.response.data);
+    } else {
+      console.error('Error sending WeChat notification:', error.message);
+    }
   }
 }
 

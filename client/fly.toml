@@ -1,0 +1,20 @@
+app = "earthquake-frontend"
+primary_region = "sin"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+[[http_service.checks]]
+  interval = "1m"
+  timeout = "10s"
+  grace_period = "5s"
+  method = "GET"
+  path = "/"

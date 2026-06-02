@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AlertTriangle, Activity, Settings, Bell, MapPin, Clock, Gauge } from 'lucide-react';
 import EarthquakeList from './components/EarthquakeList';
+import EarthquakeMap from './components/EarthquakeMap';
 import ConfigPanel from './components/ConfigPanel';
 import axios from 'axios';
 
@@ -153,6 +154,9 @@ function App() {
             </div>
           </div>
         </div>
+
+        {/* Earthquake Map */}
+        {earthquakes && <EarthquakeMap earthquakes={earthquakes} />}
 
         {/* Config Panel */}
         {showConfig && (

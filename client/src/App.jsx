@@ -4,6 +4,8 @@ import EarthquakeList from './components/EarthquakeList';
 import ConfigPanel from './components/ConfigPanel';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://earth-golv.onrender.com';
+
 function App() {
   const [earthquakes, setEarthquakes] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +17,7 @@ function App() {
   const fetchEarthquakes = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/earthquakes');
+      const response = await axios.get(`${API_URL}/api/earthquakes`);
       setEarthquakes(response.data);
       setLastUpdated(new Date());
       setError(null);
@@ -29,7 +31,7 @@ function App() {
 
   const fetchConfig = async () => {
     try {
-      const response = await axios.get('/api/config');
+      const response = await axios.get(`${API_URL}/api/config`);
       setConfig(response.data);
     } catch (err) {
       console.error('Error fetching config:', err);

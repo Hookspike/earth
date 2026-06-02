@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { X, Bell, Gauge, Save, Check, Send } from 'lucide-react';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://earth-golv.onrender.com';
+
 function ConfigPanel({ config, onConfigUpdate, onClose }) {
   const [threshold, setThreshold] = useState(config.threshold);
   const [sckey, setSckey] = useState('');
@@ -12,7 +14,7 @@ function ConfigPanel({ config, onConfigUpdate, onClose }) {
   const handleSaveThreshold = async () => {
     try {
       setSaving(true);
-      await axios.post('/api/config/threshold', { threshold });
+      await axios.post(`${API_URL}/api/config/threshold`, { threshold });
       setSaved(true);
       onConfigUpdate();
       setTimeout(() => setSaved(false), 2000);
@@ -27,7 +29,7 @@ function ConfigPanel({ config, onConfigUpdate, onClose }) {
   const handleSaveSckey = async () => {
     try {
       setSaving(true);
-      await axios.post('/api/config/serverchan', { sckey });
+      await axios.post(`${API_URL}/api/config/serverchan`, { sckey });
       setSaved(true);
       onConfigUpdate();
       setSckey('');
@@ -43,7 +45,7 @@ function ConfigPanel({ config, onConfigUpdate, onClose }) {
   const handleTestNotification = async () => {
     try {
       setTesting(true);
-      await axios.post('/api/test-notification');
+      await axios.post(`${API_URL}/api/test-notification`);
       alert('测试通知已发送！请检查微信。');
     } catch (error) {
       console.error('Error sending test notification:', error);

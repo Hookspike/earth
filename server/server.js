@@ -20,35 +20,9 @@ app.use(express.json());
 // USGS API endpoint for real-time earthquakes
 const USGS_API = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson';
 
-// Config file path
-const CONFIG_FILE = path.join(__dirname, 'config.json');
-
-// Load config from file
-function loadConfig() {
-  try {
-    if (fs.existsSync(CONFIG_FILE)) {
-      const data = fs.readFileSync(CONFIG_FILE, 'utf8');
-      return JSON.parse(data);
-    }
-  } catch (error) {
-    console.error('Error loading config:', error.message);
-  }
-  return { sckey: null, threshold: 5.0 };
-}
-
-// Save config to file
-function saveConfig(config) {
-  try {
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
-  } catch (error) {
-    console.error('Error saving config:', error.message);
-  }
-}
-
-// Load initial config
-const savedConfig = loadConfig();
-let currentSckey = process.env.SERVERCHAN_SCKEY || savedConfig.sckey;
-let currentThreshold = process.env.ALERT_THRESHOLD || savedConfig.threshold || 5.0;
+// Load initial config from environment variables
+let currentSckey = process.env.SERVERCHAN_SCKEY || null;
+let currentThreshold = parseFloat(process.env.ALERT_THRESHOLD) || 5.0;
 
 let lastNotifiedEarthquakes = new Set();
 
@@ -133,8 +107,7 @@ app.post('/api/config/serverchan', (req, res) => {
   const { sckey } = req.body;
   if (sckey) {
     currentSckey = sckey;
-    saveConfig({ sckey: currentSckey, threshold: currentThreshold });
-    res.json({ success: true, message: 'ServerChan SCKEY updated' });
+    res.json({ success: true, message: 'ServerChan SCKEY updated (in-memory only)' });
   } else {
     res.status(400).json({ error: 'SCKEY is required' });
   }
@@ -145,8 +118,7 @@ app.post('/api/config/threshold', (req, res) => {
   const { threshold } = req.body;
   if (threshold && !isNaN(threshold)) {
     currentThreshold = threshold;
-    saveConfig({ sckey: currentSckey, threshold: currentThreshold });
-    res.json({ success: true, message: 'Alert threshold updated' });
+    res.json({ success: true, message: 'Alert threshold updated (in-memory only)' });
   } else {
     res.status(400).json({ error: 'Valid threshold is required' });
   }

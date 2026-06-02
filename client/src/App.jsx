@@ -4,7 +4,7 @@ import EarthquakeList from './components/EarthquakeList';
 import ConfigPanel from './components/ConfigPanel';
 import axios from 'axios';
 
-const API_URL = 'https://earth-golv.onrender.com';
+const API_URL = 'https://earth-gclv.onrender.com';
 
 function App() {
   const [earthquakes, setEarthquakes] = useState(null);

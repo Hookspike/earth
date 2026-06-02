@@ -11,7 +11,10 @@ const PORT = process.env.PORT || 3001;
 const ALERT_THRESHOLD = parseFloat(process.env.ALERT_THRESHOLD) || 5.0;
 const SERVERCHAN_SCKEY = process.env.SERVERCHAN_SCKEY;
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://earthquake-warning.vercel.app', 'http://localhost:3000', 'https://earth-golv.onrender.com'],
+  credentials: true
+}));
 app.use(express.json());
 
 // USGS API endpoint for real-time earthquakes

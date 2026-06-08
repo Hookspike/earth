@@ -12,7 +12,7 @@ const ALERT_THRESHOLD = parseFloat(process.env.ALERT_THRESHOLD) || 5.0;
 const SERVERCHAN_SCKEY = process.env.SERVERCHAN_SCKEY;
 
 app.use(cors({
-  origin: ['https://earthquake-warning.vercel.app', 'http://localhost:3000', 'https://earth-gclv.onrender.com'],
+  origin: ['https://earthquake-warning.vercel.app', 'http://localhost:3000', 'https://earth-gclv.onrender.com', 'https://earthquake-frontend.fly.dev'],
   credentials: true
 }));
 app.use(express.json());

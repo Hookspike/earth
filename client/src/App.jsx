@@ -5,7 +5,7 @@ import EarthquakeMap from './components/EarthquakeMap';
 import ConfigPanel from './components/ConfigPanel';
 import axios from 'axios';
 
-const API_URL = 'https://earth-gclv.onrender.com';
+const API_URL = 'https://earthquake-backend.fly.dev';
 
 function App() {
   const [earthquakes, setEarthquakes] = useState(null);

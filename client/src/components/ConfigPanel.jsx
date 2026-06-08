@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, Bell, Gauge, Save, Check, Send } from 'lucide-react';
 import axios from 'axios';
 
-const API_URL = 'https://earth-gclv.onrender.com';
+const API_URL = 'https://earthquake-backend.fly.dev';
 
 function ConfigPanel({ config, onConfigUpdate, onClose }) {
   const [threshold, setThreshold] = useState(config.threshold);
